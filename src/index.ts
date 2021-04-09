@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import {app, BrowserWindow} from 'electron'
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -7,17 +7,22 @@ if (require('electron-squirrel-startup')) {
   app.quit()
 }
 
+if (process.platform === 'darwin') {
+  app.dock.hide()
+}
+
 const createWindow = (): void => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 400,
-    width: 1200,
+    width: 1000,
     frame: true,
-    alwaysOnTop: false,
     resizable: false,
-    fullscreenable: false,
     opacity: 0.9,
   })
+
+  mainWindow.setAlwaysOnTop(true, 'screen-saver')
+  mainWindow.setVisibleOnAllWorkspaces(true)
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)

@@ -1,0 +1,38 @@
+.container
+  width: 100vw
+  height: 100vh
+  background: black
+  display: grid
+  grid-template-rows: (1fr / 3) repeat(5, 1fr)
+  gap: 0.5rem 0
+
+$button-size: 3.5rem
+.button
+  width: 100%
+  height: $button-size
+  background: white
+  font-size: 18px
+  font-weight: 500
+  user-select: none
+  border-radius: 0.2rem
+  cursor: pointer
+  margin: auto
+
+$column-templates: 1.5fr repeat(13, 1fr), repeat(13, 1fr) 1.5fr, 1.5fr repeat(13, 1fr), 1.75fr repeat(11, 1fr) 1.75fr, 2fr repeat(10, 1fr) 2fr, repeat(3, 1fr) 1.2fr 5fr 1.25fr repeat(4, 1fr)
+
+.row
+  max-width: 100vw
+  display: grid
+  grid-template-rows: 1fr
+  column-gap: 0.5rem
+
+  $index: 0
+  @each $template in $column-templates
+    $index: $index + 1
+    &:nth-child(#{$index})
+      grid-template-columns: $template
+  
+  &:nth-child(1)
+    .button
+      height: $button-size / 3
+      font-size: 14px
